@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Module 1 JavaScript : Dragon Slayer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://fonts.googleapis.com/css?family=Germania+One" rel="stylesheet">
+    <link rel="stylesheet" href="css/dragon-slayer.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Fonctions utilitaires -->
+    <script src="js/utilities.js"></script>
+
+</head>
+<body>
+<header>
+    <h1>Dragon slayer</h1>
+    <p>Le dernier combat javaScript du Module 1</p>
+</header>
+<main>
+    <div class="game container">
+        <section class="container-difficult">
+            <h2 id="difficult">Choisissez une difficultée</h2>
+            <div id="choice-level"></div>
+        </section>
+
+        <section class="container-game-state">
+            <h2>Que la fête commence !!</h2>
+            <!-- Etat du jeu -->
+            <div class="game-state">
+                <figure class="game-state_player">
+                    <img src="images/knight.png" alt="Chevalier">
+                    <figcaption class="pv-player"></figcaption>
+                </figure>
+                <div class="container-initiative">
+                    <button class="button button-initiative">Initiative</button>
+                </div>
+                <figure class="game-state_player">
+                    <img src="images/dragon.png" alt="Dragon">
+                    <figcaption class="pv-dragon"></figcaption>
+                </figure>
+            </div>
+            <div class="initiative-score">
+                <div class="initiative-score-player"></div>
+                <div class="initiative-score-dragon"></div>
+            </div>
+        </section>
+    </div>
+    <script src="js/dragon-slayer.js"></script>
+</main>
+<!--<img src="images/cloud1.png" alt="" id="cloud1" class="cloud">-->
+<!--<img src="images/cloud2.png" alt="" id="cloud2" class="cloud">-->
+</body>
+</html>
