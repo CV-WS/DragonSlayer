@@ -1,7 +1,12 @@
+.scalable:hover {
+    transform: scale(1.5);
+    transition: transform .3s ease-in-out;
+}
+
 .button {
-    background-image: url("../images/parchemin.png");
+
     background-position: center;
-    background-size: 80% 107%;
+
     background-repeat: no-repeat;
     font-family: 'Germania One', cursive;
     font-size: 1.8rem;
@@ -12,12 +17,17 @@
     cursor: pointer;
 }
 
-.button:hover {
-    transform: scale(1.5);
-    transition: transform .3s ease-in-out;
+.button-parchemin {
+    background-image: url("../images/parchemin.png");
+    background-size: 80% 107%;
 }
 
-.container {
+.button-attack {
+    background-image: url("../images/attack.png");
+    background-size: 60% 100%;
+}
+
+.container-toto {
     padding-bottom: 5vw;
 }
 
@@ -41,6 +51,10 @@
     display: none;
 }
 
+.container-round {
+    display: none;
+}
+
 .container-initiative {
     display: flex;
     flex-direction: column;
@@ -52,4 +66,8 @@
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
+}
+
+.container-end-game {
+    display: none;
 }

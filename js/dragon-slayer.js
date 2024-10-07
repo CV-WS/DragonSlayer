@@ -13,16 +13,44 @@ const blockPvDragon = document.querySelector('.pv-dragon');
 const btnInitiative = document.querySelector('.button-initiative');
 const scorePlayerIn = document.querySelector('.initiative-score-player');
 const scoreDragonIn = document.querySelector('.initiative-score-dragon');
+const player = document.querySelector('#player');
+const dragon = document.querySelector('#dragon');
+const btnAttack = document.querySelector('.button-attack');
+const containerRound = document.querySelector('.container-round');
+const imageRound = document.querySelector('#image-round');
+const roundMessage = document.querySelector('.round-message');
+const buttonNext = document.querySelector('.button-next');
+const finish = document.querySelector('.container-end-game');
+const imageWinner = document.querySelector('.image-winner');
+const messageWinner = document.querySelector('.message-winner');
+const numberRound = document.querySelector('.number-round');
 
 
 let pvPlayer = 100;
 let pvDragon = 100;
 let scoreInitiativePlayer = 0;
 let scoreInitiativeDragon = 0;
-let dammage = 0;
+let damage = 0;
+let curentRound = 0;
 
 let currentConfigLevel = null
 let levelPlayer = null;
+
+let isInitiative = true;
+
+const messageRound = (value) => {
+    return {
+        dragon: `Le dragon prend l'initiative, vous attaque et vous inflige ${value} points de dommage !`,
+        player: `Vous êtes le plus rapide, vous attaquez le dragon et lui infligez ${value} points de dommage !`
+    }
+}
+
+const messageWin = () => {
+    return {
+        dragon: `Vous avez perdu le combat, le dragon vous a carbonisé !`,
+        player: `Vous avez gagné ! Le lézard a été découper !`
+    }
+}
 
 const configLevel = (pv = null, numberDiceFace = null, numberOfThrows = null) => {
     return {
@@ -71,7 +99,7 @@ const configLevels = {
 let htmlFormChoice = '';
 //Créer les bouton et inséerer dans le formulaire
 levelsPlayer.forEach((element, index) => {
-    htmlFormChoice += `<button class="button button-level" data-id="${index}">${element}</button>`;
+    htmlFormChoice += `<button class="button button-level scalable button-parchemin" data-id="${index}">${element}</button>`;
     // let levelButton = document.createElement('button');
     // // Ajouter une class au bouton
     // levelButton.classList.add('level-button');
@@ -112,24 +140,76 @@ levelButtons.forEach((element, index) => {
 });
 
     btnInitiative.addEventListener('click', () => {
-        scoreInitiativePlayer = diceRoll(6, 10);
-        scoreInitiativeDragon = diceRoll(6, 10);
 
-        scorePlayerIn.innerText = `${scoreInitiativePlayer} Points`;
-        scoreDragonIn.innerText = `${scoreInitiativeDragon} Points`;
+        if (isInitiative) {
+            curentRound++;
+            scoreInitiativePlayer = diceRoll(6, 10);
+            scoreInitiativeDragon = diceRoll(6, 10);
+            btnInitiative.classList.remove('scalable');
+            btnInitiative.disabled = true;
+            btnInitiative.style.cursor = 'not-allowed';
 
-        setTimeout(() => {
-            dammage = diceRoll(6, 3);
+            scorePlayerIn.innerText = `${scoreInitiativePlayer} Points`;
+            scoreDragonIn.innerText = `${scoreInitiativeDragon} Points`;
+            damage = diceRoll(6, 3);
 
             if (scoreInitiativePlayer > scoreInitiativeDragon) {
-                pvDragon -= dammage;
-                blockPvDragon.innerText = pvDragon
+                player.style.transform = 'scale(1.3)';
+                btnAttack.classList.add('scalable');
+                btnAttack.disabled = false;
             } else {
-                pvPlayer -= dammage
+                numberRound.innerText = `Tour n°${curentRound}`
+                imageRound.src = 'images/dragon-winner.png'
+                dragon.style.transform = 'scale(1.3)';
+                containerGameState.style.display = 'none';
+                containerRound.style.display = 'initial';
+                roundMessage.innerText = messageRound(damage).dragon;
+                pvPlayer -= damage
+                if (pvPlayer <= 0) {
+                    containerRound.style.display = 'none';
+                    finish.style.display = 'initial';
+                    imageWinner.src = 'images/dragon-winner.png';
+                    messageWinner.innerText = messageWin().dragon;
+                }
                 blockPvPlayer.innerText = pvPlayer
             }
-        }, 2000);
+        }
+
+
+
+        isInitiative = false;
     });
+
+btnAttack.addEventListener('click', () => {
+    if (!btnAttack.disabled) {
+        numberRound.innerText = `Tour n°${curentRound}`
+    containerGameState.style.display = 'none';
+    containerRound.style.display = 'initial';
+        imageRound.src = 'images/knight-winner.png'
+        roundMessage.innerText = messageRound(damage).player;
+        pvDragon -= damage;
+        if (pvDragon <= 0) {
+            containerRound.style.display = 'none';
+            finish.style.display = 'initial';
+            imageWinner.src = 'images/knight-winner.png'
+            messageWinner.innerText = messageWin().player;
+        }
+        blockPvDragon.innerText = pvDragon
+
+    }
+})
+
+buttonNext.addEventListener('click', () => {
+    containerRound.style.display = 'none';
+    containerGameState.style.display = 'initial';
+    btnInitiative.classList.add('scalable');
+    btnInitiative.disabled = false;
+    btnInitiative.style.cursor = 'pointer';
+    btnAttack.disabled = true;
+    isInitiative = true;
+})
+
+
 
 
 /*************************************************************************************************/

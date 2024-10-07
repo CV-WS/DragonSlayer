@@ -30,21 +30,44 @@
             <!-- Etat du jeu -->
             <div class="game-state">
                 <figure class="game-state_player">
-                    <img src="images/knight.png" alt="Chevalier">
+                    <img id="player" src="images/knight.png" alt="Chevalier">
                     <figcaption class="pv-player"></figcaption>
                 </figure>
                 <div class="container-initiative">
-                    <button class="button button-initiative">Initiative</button>
+                    <button
+                            class="button button-initiative scalable button-parchemin">Initiative
+                    </button>
                 </div>
                 <figure class="game-state_player">
-                    <img src="images/dragon.png" alt="Dragon">
+                    <img id="dragon" src="images/dragon.png" alt="Dragon">
                     <figcaption class="pv-dragon"></figcaption>
                 </figure>
             </div>
             <div class="initiative-score">
                 <div class="initiative-score-player"></div>
+                <button class="button button-attack" disabled="true">Attaquer
+                </button>
                 <div class="initiative-score-dragon"></div>
             </div>
+        </section>
+
+        <section class="container-round">
+            <h3 class="number-round">Tour n°19</h3>
+            <figure class="game-round">
+                <img id="image-round" src="images/dragon-winner.png"
+                     alt="Dragon vainqueur">
+                <figcaption class="round-message"></figcaption>
+            </figure>
+            <button class="button button-next button-parchemin">Tour suivant</button>
+        </section>
+
+        <section class="container-end-game">
+            <h3>Fin de la partie</h3>
+            <figure class="game-end">
+                <figcaption class="message-winner"></figcaption>
+                <img class="image-winner" src="images/dragon-winner.png"
+                     alt="Dragon vainqueur">
+            </figure>
         </section>
     </div>
     <script src="js/dragon-slayer.js"></script>
